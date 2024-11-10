@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "2f312c63-b049-4ed0-aacb-67435636cd2a",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28773689"
+	},
+	"item": [
+		{
+			"name": "https://api.authorize.net/xml/v1/request.api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "https://assumelist.com"
+					},
+					{
+						"key": "Referer",
+						"value": "https://assumelist.com/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "X-WP-Nonce",
+						"value": "38ccfeacd1"
+					},
+					{
+						"key": "basicAuthorization",
+						"value": "Basic YWRtaW46YWRtaW4="
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"123\", \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"123\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "userid",
+						"value": "29"
+					},
+					{
+						"key": "usertype",
+						"value": "administrator"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"ItemsPerPage\": 100,\n    \"status_include\": 0,\n    \"order\": \"DESC\",\n    \"loanTypes\": \"28|12|15\",\n    \"rent_or_forsale\": \"for_sale\",\n    \"makeCall\": \"0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.assumelist.com/api/listings",
+					"protocol": "https",
+					"host": [
+						"api",
+						"assumelist",
+						"com"
+					],
+					"path": [
+						"api",
+						"listings"
+					]
+				},
+				"description": "Generated from cURL: curl --location --request POST 'https://api.authorize.net/xml/v1/request.api' \\\r\n--header 'Content-Type: application/json' \\\r\n--data-raw '{\r\n    \"getTransactionListRequest\": {\r\n        \"merchantAuthentication\": {\r\n            \"name\": \"876vPt4J4jTv\",\r\n            \"transactionKey\": \"9a35yy7R3dC6Zn8N\"\r\n        },\r\n        \"batchId\": \"992150959\",\r\n        \"sorting\": {\r\n            \"orderBy\": \"submitTimeUTC\",\r\n            \"orderDescending\": \"true\"\r\n        },\r\n        \"paging\": {\r\n            \"limit\": \"1000\",\r\n            \"offset\": \"1\"\r\n        }\r\n    }\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.authorize.net/xml/v1/request.api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"getSettledBatchListRequest\": {\r\n        \"merchantAuthentication\": {\r\n            \"name\": \"876vPt4J4jTv\",\r\n            \"transactionKey\": \"9a35yy7R3dC6Zn8N\"\r\n        },\r\n        \"firstSettlementDate\": \"2024-09-15T00:00:00Z\",\r\n        \"lastSettlementDate\": \"2024-09-16T23:59:59Z\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.authorize.net/xml/v1/request.api",
+					"protocol": "https",
+					"host": [
+						"api",
+						"authorize",
+						"net"
+					],
+					"path": [
+						"xml",
+						"v1",
+						"request.api"
+					]
+				},
+				"description": "Generated from cURL: curl --location --request POST 'https://api.authorize.net/xml/v1/request.api' \\\r\n--header 'Content-Type: application/json' \\\r\n--data-raw '{\r\n    \"getSettledBatchListRequest\": {\r\n        \"merchantAuthentication\": {\r\n            \"name\": \"876vPt4J4jTv\",\r\n            \"transactionKey\": \"9a35yy7R3dC6Zn8N\"\r\n        },\r\n        \"firstSettlementDate\": \"2024-09-14T00:00:00Z\",\r\n        \"lastSettlementDate\": \"2024-09-15T23:59:59Z\"\r\n    }\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.authorize.net/xml/v1/request.api",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/GetType",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"GetType"
+					]
+				},
+				"description": "Generated from cURL: curl --location --request POST 'https://api.authorize.net/xml/v1/request.api' \\\r\n--header 'Content-Type: application/json' \\\r\n--data-raw '{\r\n    \"getTransactionDetailsRequest\": {\r\n        \"merchantAuthentication\": {\r\n            \"name\": \"876vPt4J4jTv\",\r\n            \"transactionKey\": \"9a35yy7R3dC6Zn8N\"\r\n        },\r\n        \"transId\": \"120647171587\"\r\n    }\r\n}'"
+			},
+			"response": []
+		}
+	]
+}

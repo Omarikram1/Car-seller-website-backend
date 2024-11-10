@@ -1,0 +1,9 @@
+Django>=3.2,<5.0                        # Core Django framework for web development
+djangorestframework>=3.12                # Django REST Framework for API handling
+django-crispy-forms>=1.11.2              # Optional, useful for rendering forms like CustomUserCreationForm
+Pillow>=8.0.0                            # For image processing, used by Django for image-related fields
+django-environ>=0.8.1                    # For managing environment variables in Django
+djangorestframework-jwt>=1.11.0          # JWT Authentication for REST framework
+django-allauth>=0.44                     # Optional for handling authentication and social login
+django-cors-headers>=3.7.0               # Handles Cross-Origin Resource Sharing (CORS) headers
+psycopg2>=2.8    

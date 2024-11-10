@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specific Cars</title>
+    <style>
+        .car-block {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .car-block img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Cars of Type: {{ type_name }}</h1>
+
+<div id="car-list">
+    <!-- Cars will be dynamically loaded here -->
+</div>
+
+<script>
+    // Parse the JSON string from Django into JavaScript object
+    const cars = JSON.parse('{{ CarsSet|safe }}');
+
+    // Function to dynamically render cars
+    function loadCars() {
+        const carList = document.getElementById('car-list');
+        
+        cars.forEach(car => {
+            const carData = car.fields;  // Extract the fields from the car object
+            const carBlock = document.createElement('div');
+            carBlock.className = 'car-block';
+            
+            // Creating HTML for each car
+            carBlock.innerHTML = `
+                ${carData.image ? `<img src="/media/${carData.image}" alt="${carData.name}">` : ''}
+                <p>${carData.name}</p>
+                <p>ID: ${car.pk}</p>
+            `;
+            
+            // Add click event (for example, to show car details)
+            carBlock.onclick = function() {
+                sendCarId(car.pk);  // Assuming you have a function to handle car ID
+            };
+
+            carList.appendChild(carBlock);
+        });
+    }
+
+    // Function to handle click events (example for sending car ID)
+    function sendCarId(carId) {
+        fetch('/home/specifiedcars/descriptions/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // CSRF token for Django
+            },
+            body: JSON.stringify({
+                car_id: carId  // Send the car ID to the backend
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response, for example redirect to a details page
+            console.log('Car details received:', data);
+            window.location.href = '/home/specifiedcars/details/' + carId;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Load cars when the page loads
+    document.addEventListener('DOMContentLoaded', loadCars);
+</script>
+
+</body>
+</html>

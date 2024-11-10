@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        .model-block {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            display: inline-block;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<h1>This is homepage</h1>
+
+<div id="models-list"></div> <!-- This will be populated with car types -->
+
+<script>
+    // Helper function to get the CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');  // Retrieve CSRF token from cookie
+
+    // Fetch distinct car types from the GetType API and display them
+    function fetchCarTypes() {
+        fetch('/GetType/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken  // Include CSRF token in the request headers
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const modelsList = document.getElementById('models-list');
+            modelsList.innerHTML = '';  // Clear any existing content
+
+            // Loop through the distinct types and add them to the page
+            data.distinct_types.forEach(type => {
+                const modelDiv = document.createElement('div');
+                modelDiv.classList.add('model-block');
+                modelDiv.innerHTML = type;
+                modelDiv.onclick = () => sendType(type);  // Set onclick event to send the type
+                modelsList.appendChild(modelDiv);
+            });
+        })
+        .catch(error => console.error('Error fetching car types:', error));
+    }
+
+    // Function to send the selected car type to the server
+    function sendType(typeName) {
+        fetch('/home/specifiedcars/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken  // Ensure CSRF token is included for security
+            },
+            body: JSON.stringify({
+              'model': typeName  // Send the selected model type as JSON
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = '/home/specifiedcars/';  // Redirect to the new page
+            } else {
+                console.error('Error:', response.statusText);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Fetch car types when the page loads
+    window.onload = fetchCarTypes;
+
+</script>
+
+</body>
+</html>

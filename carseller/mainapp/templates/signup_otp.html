@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+</head>
+<body>
+    <h1>Verify Your Email</h1>
+    <p>Please enter the OTP sent to your email.</p>
+
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+        <div class="message" style="color: red;">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if otp_generated %}
+    <div class="alert alert-success">
+        A new OTP has been generated and sent to your email.
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="otp">OTP:</label>
+        <input type="text" id="signupotp" name="signupotp" required>
+        <button type="submit">Verify</button>
+    </form>
+
+    <p id="timer">Time Remaining: <span id="time">{{ remaining_time }}</span> seconds</p>
+
+    <button id="resend-otp" onclick="resendOtp()" {% if not resend_button %}disabled{% endif %}>Resend OTP</button>
+
+    {% if error %}
+    <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <script src="{% static 'otpresend.js' %}"></script>
+</body>
+</html>

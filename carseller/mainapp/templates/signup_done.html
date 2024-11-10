@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign-Up Complete</title>
+</head>
+<body>
+    <h2>Thank you for signing up!</h2>
+    <p>We've sent a verification email to your inbox. Please check your email and click the verification link to complete your sign-up process.</p>
+
+    <p>If you haven't received the email, check your spam folder or <a href="{% url 'resend_verification_email' %}">resend the verification email</a>.</p>
+    
+    <p>Once your email is verified, you can <a href="{% url 'login' %}">log in here</a>.</p>
+</body>
+</html>
